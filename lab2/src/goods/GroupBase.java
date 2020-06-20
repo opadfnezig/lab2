@@ -1,8 +1,11 @@
 package goods;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.util.Collection;
+import java.util.Iterator;
 
 import abstractClasses.SmartListContainer;
 import exceptions.NotEnoughGoodException;
@@ -11,9 +14,9 @@ import stock.Order;
 import stock.Order.OperationType;
 import utils.Pair;
 
-public class GroupBase extends SmartListContainer<Group>
+public class GroupBase extends SmartListContainer<Group> implements Collection<Group>
 {
-	String path;
+	private String path;
 	public GroupBase(String path) 
 	{
 		super();
@@ -42,6 +45,14 @@ public class GroupBase extends SmartListContainer<Group>
 		return null;
 	}
 	
+	private Group findGroup(Group group)
+	{
+		for(var i : list)
+			if(i.getName().equals(group.getName()))
+				return i;
+		return null;
+	}
+	
 	public Pair findGood(String name)
 	{
 		for(int i = 0;i < list.size();++i)
@@ -64,6 +75,13 @@ public class GroupBase extends SmartListContainer<Group>
 			good.decreaseCount(operation.getCount());
 	}
 	
+	/*public void editGroup(String name, Group group)
+	{
+		findGroup(name) = group;
+	}*/
+	
+	
+	
 	public String toString()
 	{
 		String buff = "----All stock:";
@@ -76,5 +94,107 @@ public class GroupBase extends SmartListContainer<Group>
 	{
 		 try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) { oos.writeObject(this); }
 	      catch(Exception ex) { System.out.println(ex.getMessage()); } 
+	}
+	
+	public GroupBase load()
+	{
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("person.dat"))) { return (GroupBase)ois.readObject(); }
+		catch(Exception ex){ System.out.println(ex.getMessage()); }
+		return null;
+	}
+
+	@Override
+	public boolean isEmpty() 
+	{
+		if(list.size() == 0)
+			return true;
+		return false;
+	}
+
+	@Override
+	public boolean contains(Object o) 
+	{
+		if(findGroup((Group)o) != null)
+			return true;
+		return false;
+	}
+
+	@Override
+	public Iterator<Group> iterator() 
+	{
+		Iterator<Group> i = new Iterator<Group>()
+		{
+			int i = 0;
+			@Override
+			public boolean hasNext() 
+			{
+				if(list.size() > i+1)
+					return true;
+				return false;
+			}
+
+			@Override
+			public Group next() 
+			{
+				++i;
+				return list.get(i);
+			}
+			
+		};
+		return null;
+	}
+
+	@Override
+	public Object[] toArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> T[] toArray(T[] a) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean add(Group e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean remove(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean containsAll(Collection<?> c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addAll(Collection<? extends Group> c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean removeAll(Collection<?> c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean retainAll(Collection<?> c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
 	}
 }
