@@ -18,7 +18,7 @@ public class Good extends SmartContainer
 	
 	public Good() { }
 	
-	public Good(String name,String description,String manufacturer,int count,double price)
+	public Good(String name,String description,String manufacturer,double price)
 	{
 		if(name == "" || name == null)
 			throw new IllegalArgumentException("param \'name\' can not be empty");
@@ -29,7 +29,7 @@ public class Good extends SmartContainer
 		this.name = name;
 		this.description = description;
 		this.manufacturer = manufacturer;
-		this.count = count;
+		this.count = 0;
 		this.price = price;
 	}
 	

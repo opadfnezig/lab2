@@ -14,11 +14,14 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import goods.GroupBase;
+
 public class MainFrame extends JFrame{
 
 	private JMenuBar topMenu;
 	
-	private JMenu groupMenu, goodsMenu, orderMenu;
+	private JMenu fileMenu, groupMenu, goodsMenu, orderMenu;
+	private JMenuItem load, save, exit;
 	private JMenuItem newGroup, delGroup, editGroup;
 	private JMenuItem newGoods, delGoods, editGoods;
 	private JMenuItem newOrder, delOrder, editOrder;
@@ -29,7 +32,7 @@ public class MainFrame extends JFrame{
 	private JPanel mainPanel;
 	private JTextArea mainTextArea;
 	
-	private File coreFolder;
+	private GroupBase base;
 	
 	public MainFrame()
 	{
@@ -37,10 +40,9 @@ public class MainFrame extends JFrame{
 		this.setSize(800, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		coreFolder = new File("Storage");
-		
 		initTopMenu();
-		initLeftPanel();
+		//initLeftPanel();
+		initMainPanel();
 		
 		this.add(topMenu, BorderLayout.PAGE_START);
 		
@@ -51,13 +53,50 @@ public class MainFrame extends JFrame{
 	{
 		topMenu = new JMenuBar();
 		
+		initFile();
 		initGroup();
 		initGoods();
 		initOrder();
 		
+		topMenu.add(fileMenu);
 		topMenu.add(groupMenu);
 		topMenu.add(goodsMenu);
 		topMenu.add(orderMenu);
+	}
+	private void initFile()
+	{
+		fileMenu = new JMenu("File");
+		
+		save = new JMenuItem("Save  Ctrl+s");
+		load = new JMenuItem("Load  Ctrl+l");
+		exit = new JMenuItem("Exit");
+		
+		save.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		load.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		exit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				exit();
+			}
+		});
+		
+		fileMenu.add(save);
+		fileMenu.add(load);
+		fileMenu.add(exit);
+		
 	}
 	private void initGroup()
 	{
@@ -71,7 +110,7 @@ public class MainFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				NewGroupFrame ngf = new NewGroupFrame(base);
 			}
 		});
 		editGroup.addActionListener(new ActionListener() {
@@ -163,15 +202,15 @@ public class MainFrame extends JFrame{
 	}
 	
 	private void initLeftPanel() {
-		leftPanel = new JPanel();
+		leftPanel = new JPanel(new BorderLayout());
 		Border border = BorderFactory.createTitledBorder("File system");
 		leftPanel.setBorder(border);
 		initFileTree();
 		this.add(leftPanel, BorderLayout.WEST);
 	}
 	private void initFileTree() {
-        DefaultMutableTreeNode top = new DefaultMutableTreeNode(coreFolder.getName());
-        initTree(coreFolder,top);
+        DefaultMutableTreeNode top = new DefaultMutableTreeNode(base.getName());
+        
         
         fileSystem = new JTree(top);
         JScrollPane treeView = new JScrollPane(fileSystem);
@@ -185,7 +224,7 @@ public class MainFrame extends JFrame{
 			}
 		});
         
-        leftPanel.add(treeView);
+        leftPanel.add(treeView, BorderLayout.CENTER);
     }
     private DefaultMutableTreeNode initTree(File file, DefaultMutableTreeNode node) {
     	File[] files = file.listFiles();
@@ -203,10 +242,20 @@ public class MainFrame extends JFrame{
 	
     private void initMainPanel()
     {
-    	mainPanel = new JPanel();
+    	mainPanel = new JPanel(new BorderLayout());
     	
+    	mainTextArea = new JTextArea();
+    	mainTextArea.setEditable(false);
+    	JScrollPane sp = new JScrollPane(mainTextArea,
+    			JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     	
+    	mainPanel.add(sp, BorderLayout.CENTER);
+    	
+    	this.add(mainPanel, BorderLayout.CENTER);
     }
+    
+    private void exit(){this.dispose();}
     
 	public static void main(String[] args) {
 		MainFrame mf = new MainFrame();
