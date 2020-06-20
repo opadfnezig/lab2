@@ -2,43 +2,32 @@ package Goods;
 
 import java.util.ArrayList;
 
+import abstractClasses.SmartContainer;
+import abstractClasses.SmartListContainer;
 import exceptions.NotUniqueElementException;
+import utils.Pair;
 
-public class GroupBase
+public class GroupBase extends SmartListContainer<Group>
 {
-	
-	private ArrayList<Group> list;
-	
-	public GroupBase() 
+	public void addGroup(Group element) throws NotUniqueElementException 
 	{
-		list = new ArrayList<Group>();
-		
-	}
-	
-	public void add(Group group) throws NotUniqueElementException
-	{
-		if(find(group) != -1)
+		if(getElementIndex(element) != -1)
 			throw new NotUniqueElementException("param 'name' should be unique");
-		list.add(group);
+		list.add(element);
 	}
-	
-	private int find(Group group)
+	public void addGood(int index,Group element) throws NotUniqueElementException
 	{
-		for(int i = 0;i< list.size();++i)
-			if(list.get(i).getName().equals(group.getName()))
-				return i;
-		return -1;
+		if(findGood(element.getName()) != null)
+			throw new NotUniqueElementException();
+		list.add(element);
 	}
 	
-	public void edit(int index,Group group)
+	public Pair findGood(String name)
 	{
-		if(index >= list.size())
-			throw new IndexOutOfBoundsException(index);
-		if(index < 0)
-			throw new IllegalArgumentException();
-		list.set(index, group);
+		for(int i = 0;i < list.size();++i)
+			for(int j = 0; j < list.get(i).size();++j)
+				if(list.get(i).get(j).getName().equals(name))
+					return new Pair(i,j);
+		return null;
 	}
-	
-	public void editName(int index,String name) { edit(index,new Group(name,list.get(index))); }
-	
 }
