@@ -2,6 +2,7 @@ package Frame;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -22,8 +23,11 @@ public class MainFrame extends JFrame{
 	private JMenuItem newGoods, delGoods, editGoods;
 	private JMenuItem newOrder, delOrder, editOrder;
 	
-	private JPanel leftPanel, mainPanel;
+	private JPanel leftPanel;
 	private JTree fileSystem;
+	
+	private JPanel mainPanel;
+	private JTextArea mainTextArea;
 	
 	private File coreFolder;
 	
@@ -35,6 +39,7 @@ public class MainFrame extends JFrame{
 		
 		coreFolder = new File("Storage");
 		
+		initTopMenu();
 		initLeftPanel();
 		
 		this.add(topMenu, BorderLayout.PAGE_START);
@@ -158,7 +163,7 @@ public class MainFrame extends JFrame{
 	}
 	
 	private void initLeftPanel() {
-		leftPanel = new JPanel(new GridLayout(10, 10));
+		leftPanel = new JPanel();
 		Border border = BorderFactory.createTitledBorder("File system");
 		leftPanel.setBorder(border);
 		initFileTree();
@@ -196,7 +201,12 @@ public class MainFrame extends JFrame{
         return node;
     }
 	
-    
+    private void initMainPanel()
+    {
+    	mainPanel = new JPanel();
+    	
+    	
+    }
     
 	public static void main(String[] args) {
 		MainFrame mf = new MainFrame();
