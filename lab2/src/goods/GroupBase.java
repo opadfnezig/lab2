@@ -136,12 +136,12 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 			@Override
 			public Group next() 
 			{
-				++i;
+				i++;
 				return list.get(i);
 			}
 			
 		};
-		return null;
+		return i;
 	}
 
 	@Override

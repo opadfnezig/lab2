@@ -23,7 +23,7 @@ public class NewGroupFrame extends JFrame{
 	
 	public NewGroupFrame(GroupBase gb)
 	{
-		super();
+		super("New group");
 		this.setSize(400, 300);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,12 +50,12 @@ public class NewGroupFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//try {
-					//base.addGroup(new Group(nameField.getText(), descriptionField.getText()));
+				try {
+					base.addGroup(new Group(nameField.getText(), descriptionField.getText()));
 					exit();
-				//} catch (NotUniqueElementException e1) {
-					//JOptionPane.showMessageDialog(null, e1.getMessage());
-				//}
+				} catch (NotUniqueElementException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
 				
 			}
 		});

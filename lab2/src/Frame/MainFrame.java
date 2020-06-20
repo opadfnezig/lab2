@@ -14,6 +14,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import goods.Group;
 import goods.GroupBase;
 
 public class MainFrame extends JFrame{
@@ -210,7 +211,8 @@ public class MainFrame extends JFrame{
 	}
 	private void initFileTree() {
         DefaultMutableTreeNode top = new DefaultMutableTreeNode(base.getName());
-        
+        for(Group g:base)
+        	
         
         fileSystem = new JTree(top);
         JScrollPane treeView = new JScrollPane(fileSystem);

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import exceptions.NotUniqueElementException;
 import goods.*;
 
 public class NewGoodsFrame extends JFrame{
@@ -46,7 +47,7 @@ public class NewGoodsFrame extends JFrame{
 		pl.add(create);
 		pl.add(cancel);
 		
-create.addActionListener(new ActionListener() {
+		create.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
