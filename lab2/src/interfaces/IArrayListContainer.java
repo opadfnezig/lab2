@@ -12,4 +12,5 @@ public interface IArrayListContainer<T>
 	public void editName(int index,String name);
 	public T get(int index);
 	public int size();
+	public double getPrice();
 }
