@@ -1,10 +1,10 @@
-package Goods;
+package goods;
 
-import java.util.ArrayList;
-
-import abstractClasses.SmartContainer;
 import abstractClasses.SmartListContainer;
+import exceptions.NotEnoughGoodException;
 import exceptions.NotUniqueElementException;
+import stock.StockOperation;
+import stock.StockOperation.OperationType;
 import utils.Pair;
 
 public class GroupBase extends SmartListContainer<Group>
@@ -29,5 +29,26 @@ public class GroupBase extends SmartListContainer<Group>
 				if(list.get(i).get(j).getName().equals(name))
 					return new Pair(i,j);
 		return null;
+	}
+	
+	public Good getGoodByIndex(int i,int j) { return list.get(i).get(j); }
+	public Good getGoodByIndex(Pair pair) { return list.get((int)pair.arg1).get((int)pair.arg2); }
+	
+	public void applyStockOperation(StockOperation operation) throws NotEnoughGoodException
+	{
+		Good good = getGoodByIndex(findGood(operation.getGoodName())); 
+		if(operation.getType() == OperationType.purchase)
+			good.increaseCount(operation.getCount());
+		else
+			good.decreaseCount(operation.getCount());
+		//log?
+	}
+	
+	public String toString()
+	{
+		String buff = "----All stock:";
+		for(var i : list)
+			buff += "\n" + i.toString();
+		return buff;
 	}
 }

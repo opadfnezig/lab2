@@ -1,6 +1,9 @@
 package abstractClasses;
 
-public abstract class SmartContainer 
+import interfaces.IGood;
+import jdk.jshell.spi.ExecutionControl.NotImplementedException;
+
+public abstract class SmartContainer implements IGood
 {
 	protected String name;
 	protected String description;

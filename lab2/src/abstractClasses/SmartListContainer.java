@@ -60,4 +60,13 @@ public abstract class SmartListContainer<T extends SmartContainer> extends Smart
 	public T get(int index) { return list.get(index); }
 	@Override
 	public int size() { return list.size(); }
+	
+	@Override
+	public double getPrice()
+	{
+		double price = 0;
+		for(var i : list)
+			price += i.getPrice();
+		return price;
+	}
 }
