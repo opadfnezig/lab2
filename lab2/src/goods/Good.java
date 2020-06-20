@@ -15,6 +15,25 @@ public class Good extends SmartContainer
 	public void setCount(int count) { this.count = count; }
 	public double getPrice() { return price; }
 	public void setPrice(double price) { this.price = price; }
+	
+	public Good() { }
+	
+	public Good(String name,String description,String manufacturer,int count,double price)
+	{
+		if(name == "" || name == null)
+			throw new IllegalArgumentException("param \'name\' can not be empty");
+		if(count < 0)
+			throw new IllegalArgumentException("good count can't be less than 0");
+		if(price < 0)
+			throw new IllegalArgumentException("param \'price\' can not be less than zero");
+		this.name = name;
+		this.description = description;
+		this.manufacturer = manufacturer;
+		this.count = count;
+		this.price = price;
+	}
+	
+	
 	public void increaseCount(int conut) throws NotEnoughGoodException
 	{
 		if(this.count + count < 0)
@@ -27,6 +46,8 @@ public class Good extends SmartContainer
 			throw new NotEnoughGoodException();
 		this.count -= count;
 	}
+	
+	
 	
 	public String toString() { return name + " manufacturer:" + manufacturer + " price: " + price + " count: " + count; }
 }
