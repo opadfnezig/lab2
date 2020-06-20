@@ -53,6 +53,14 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 		return null;
 	}
 	
+	private int getGroupIndex(String name)
+	{
+		for(int i = 0;i < list.size();++i)
+			if(list.get(i).getName().equals(name))
+				return i;
+		return -1;
+	}
+	
 	public Pair findGood(String name)
 	{
 		for(int i = 0;i < list.size();++i)
@@ -75,10 +83,25 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 			good.decreaseCount(operation.getCount());
 	}
 	
-	/*public void editGroup(String name, Group group)
+	public void editGroup(String name, Group group) throws NotUniqueElementException
 	{
-		findGroup(name) = group;
-	}*/
+		if( name == group.getName() || getGroupIndex(group.getName()) == -1)
+			list.set(getGroupIndex(name),group);
+		else
+			throw new NotUniqueElementException("param 'name' should be unique");
+	}
+	
+	public void editGood(String name, Good good) throws NotUniqueElementException
+	{
+		Pair data;
+		if(name == good.getName() || findGood(good.getName()) == null)
+		{
+			data = findGood(name);
+		 	list.get((int)data.arg1).set((int)data.arg2,good);
+		}
+		else
+			throw new NotUniqueElementException("param 'name' should be unique");
+	}
 	
 	
 	
@@ -139,62 +162,56 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 				++i;
 				return list.get(i);
 			}
-			
 		};
-		return null;
+		return i;
 	}
 
 	@Override
-	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Object[] toArray() { return list.toArray(); }
 
 	@Override
-	public <T> T[] toArray(T[] a) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public <T> T[] toArray(T[] a) { return (T[]) list.toArray(); }
 
 	@Override
-	public boolean add(Group e) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean add(Group e) { list.add(e); return true; }
 
 	@Override
-	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean remove(Object o) 
+	{	
+		remove(findGroup((Group)o));
+		return true;
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		for(var a : c)
+			if(!contains(a))
+				return false;
+		return true;
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends Group> c) {
-		// TODO Auto-generated method stub
-		return false;
+		for(var i : c)
+			add(i);
+		return true;
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		for(var i : c)
+			remove(i);
+		return true;
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		for(int i = 0;i < this.size();++i)
+			list.remove(i);
 	}
 }
