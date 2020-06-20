@@ -15,6 +15,7 @@ public class Good extends SmartContainer
 	public void setCount(int count) { this.count = count; }
 	public double getPrice() { return price; }
 	public void setPrice(double price) { this.price = price; }
+	
 	public void increaseCount(int conut) throws NotEnoughGoodException
 	{
 		if(this.count + count < 0)

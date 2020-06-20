@@ -1,9 +1,11 @@
 package abstractClasses;
 
+import java.io.Serializable;
+
 import interfaces.IGood;
 import jdk.jshell.spi.ExecutionControl.NotImplementedException;
 
-public abstract class SmartContainer implements IGood
+public abstract class SmartContainer implements IGood, Serializable
 {
 	protected String name;
 	protected String description;

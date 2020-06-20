@@ -1,6 +1,6 @@
 package stock;
 
-public class StockOperation
+public class Order
 {
 	public enum OperationType { purchase,sale }
 	private int price;
@@ -18,8 +18,8 @@ public class StockOperation
 	public int getCount() { return count; }
 	public void setCount(int count) { this.count = count; }
 	
-	public StockOperation() { }
-	public StockOperation(OperationType type,String goodName,int count)
+	public Order() { }
+	public Order(OperationType type,String goodName,int count)
 	{
 		this.type = type;
 		this.goodName = goodName;
@@ -27,7 +27,7 @@ public class StockOperation
 		this.price = -1;
 	}
 	
-	public StockOperation(OperationType type,String goodName,int count,int price)
+	public Order(OperationType type,String goodName,int count,int price)
 	{
 		this.type = type;
 		this.goodName = goodName;
