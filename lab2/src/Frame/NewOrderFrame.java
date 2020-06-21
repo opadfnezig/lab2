@@ -89,8 +89,8 @@ public class NewOrderFrame extends JFrame{
 				}
 				main.initFileTree();
 				exit();
-				} catch(NotEnoughGoodException e) {
-					JOptionPane.showMessageDialog(null, e.getMessage());
+				} catch(NotEnoughGoodException nege) {
+					JOptionPane.showMessageDialog(null, nege.getMessage());
 				}
 			}
 		});
