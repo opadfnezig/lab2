@@ -40,7 +40,7 @@ public class Good extends ListContainer<Order>
 	public void setCount(int count) { this.count = count; }
 	
 	@Override
-	public double getPrice() { return price; }
+	public double getPrice() { return price * count; }
 	
 	public void setPrice(double price) { this.price = price; }
 	
