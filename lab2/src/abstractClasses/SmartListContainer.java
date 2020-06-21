@@ -52,6 +52,8 @@ public abstract class SmartListContainer<T extends SmartContainer> extends ListC
 	@Override
 	public void edit(String name, T element) throws NotUniqueElementException
 	{
+		if(name.equals("") || name == null)
+			throw new IllegalArgumentException("param 'name' can not be empty");
 		if(get(element.getName()) != null && name.equals(element.getName()))
 			throw new NotUniqueElementException();
 		list.set(getElementIndex(name),element);
@@ -61,6 +63,8 @@ public abstract class SmartListContainer<T extends SmartContainer> extends ListC
 	
 	public void edit(String name, String newName, String newDes) throws NotUniqueElementException 
 	{
+		if(name.equals("") || name == null)
+			throw new IllegalArgumentException("param 'name' can not be empty");
 		if(get(newName) != null && name.equals(newName))
 			throw new NotUniqueElementException("param 'name' should be unique");
 		T buff = get(name);

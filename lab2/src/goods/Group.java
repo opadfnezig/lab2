@@ -9,7 +9,7 @@ public class Group extends SmartListContainer<Good>
 	public Group() {} 
 	public Group(String name, String description) 
 	{
-		if(name == "" || name == null)
+		if(name.equals("") || name == null)
 			throw new IllegalArgumentException("param 'name' can not be empty");
 		this.name = name;
 		this.description = description;
