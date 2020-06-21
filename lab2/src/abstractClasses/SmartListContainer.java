@@ -39,7 +39,7 @@ public abstract class SmartListContainer<T extends SmartContainer> extends ListC
 				return i;
 		return -1;
 	}
-	
+	 	
 	@Override
 	public double getPrice()
 	{
@@ -52,7 +52,7 @@ public abstract class SmartListContainer<T extends SmartContainer> extends ListC
 	@Override
 	public void edit(String name, T element) throws NotUniqueElementException
 	{
-		if(get(element.getName()) != null && name != element.getName())
+		if(get(element.getName()) != null && name.equals(element.getName()))
 			throw new NotUniqueElementException();
 		list.set(getElementIndex(name),element);
 	}
@@ -62,11 +62,11 @@ public abstract class SmartListContainer<T extends SmartContainer> extends ListC
 	@Override
 	public void edit(String name, String newName, String newDes) throws NotUniqueElementException 
 	{
-		if(get(newName) != null && name != newName)
+		if(get(newName) != null && name.equals(newName))
 			throw new NotUniqueElementException("param 'name' should be unique");
 		T buff = get(name);
 		buff.setDescription(newDes);
-		buff.setDescription(newDes);
+		buff.setName(newName);
 	}
 
 	@Override
