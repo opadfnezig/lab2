@@ -24,7 +24,7 @@ public class Order extends SmartContainer
 	public Order()
 	{
 		++orderCount; 
-		name = orderCount.toString();
+		//name = orderCount.toString();
 	}
 	
 	public Order(OperationType type,String goodName,int count)
