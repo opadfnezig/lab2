@@ -8,4 +8,6 @@ public class DelOrderFrame extends JFrame{
 	public DelOrderFrame(MainFrame main) {
 		
 	}
+	
+	
 }
