@@ -61,7 +61,7 @@ public abstract class ListContainer<T> extends SmartContainer implements IArrayL
 			@Override
 			public boolean hasNext() 
 			{
-				if(list.size() > i)
+				if(list != null && list.size() > i)
 					return true;
 				return false;
 			}
