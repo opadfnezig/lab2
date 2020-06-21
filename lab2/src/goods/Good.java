@@ -21,11 +21,11 @@ public class Good extends SmartContainer
 	public Good(String name,String description,String manufacturer,double price)
 	{
 		if(name == "" || name == null)
-			throw new IllegalArgumentException("param \'name\' can not be empty");
+			throw new IllegalArgumentException("param 'name' can not be empty");
 		if(count < 0)
 			throw new IllegalArgumentException("good count can't be less than 0");
 		if(price < 0)
-			throw new IllegalArgumentException("param \'price\' can not be less than zero");
+			throw new IllegalArgumentException("param 'price' can not be less than zero");
 		this.name = name;
 		this.description = description;
 		this.manufacturer = manufacturer;
