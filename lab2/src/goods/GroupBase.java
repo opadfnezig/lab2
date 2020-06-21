@@ -42,9 +42,9 @@ public class GroupBase extends SmartListContainer<Group>
 	
 	public Group findGroup(String name)
 	{
-		for(var i : list)
-			if(i.getName().equals(name))
-				return i;
+		for(int i = 0; i< list.size();++i)
+			if(list.get(i).getName().equals(name))
+				return list.get(i);
 		return null;
 	}
 	

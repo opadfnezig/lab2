@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import exceptions.NotUniqueElementException;
 import interfaces.IArrayListContainer;
+import stock.Order;
 
 public abstract class ListContainer<T> extends SmartContainer implements IArrayListContainer<T>, Collection<T>
 {
@@ -83,7 +84,7 @@ public abstract class ListContainer<T> extends SmartContainer implements IArrayL
 	public <T> T[] toArray(T[] a) { return (T[]) list.toArray(); }
 
 	@Override
-	public boolean remove(Object o)  {	 return list.remove(o); }
+	public boolean remove(Object o)  { return list.remove(o); }
 
 	@Override
 	public boolean containsAll(Collection<?> c) {
@@ -132,4 +133,11 @@ public abstract class ListContainer<T> extends SmartContainer implements IArrayL
 	}
 	
 	protected void set(int index, T element) { list.set(index, element); }
+	
+	@Override
+	public void edit(String name, T element) throws NotUniqueElementException { set(getElementIndex(name),element);  }
+	@Override
+	public T get(String name) { return list.get(getElementIndex(name)); }
+	@Override
+	public void remove(String name) { list.remove(getElementIndex(name)); }
 }

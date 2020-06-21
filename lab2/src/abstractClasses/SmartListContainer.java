@@ -59,7 +59,6 @@ public abstract class SmartListContainer<T extends SmartContainer> extends ListC
 	
 
 	
-	@Override
 	public void edit(String name, String newName, String newDes) throws NotUniqueElementException 
 	{
 		if(get(newName) != null && name.equals(newName))

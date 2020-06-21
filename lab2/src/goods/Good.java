@@ -82,19 +82,5 @@ public class Good extends ListContainer<Order>
 		return -1;
 	}
 	
-	@Override
-	public void edit(String name, Order element) throws NotUniqueElementException { set(getElementIndex(name),element);  }
 
-	@Override
-	public void edit(String name, String newName, String newDes) throws NotUniqueElementException 
-	{
-		// TODO Auto-generated method stub
-		return;
-	}
-
-	@Override
-	public Order get(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
