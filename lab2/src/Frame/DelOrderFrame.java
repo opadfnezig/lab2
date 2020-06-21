@@ -21,7 +21,6 @@ public class DelOrderFrame extends JFrame{
 		super("Delete goods");
 		this.setSize(400, 400);
 		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.main = main;
 		

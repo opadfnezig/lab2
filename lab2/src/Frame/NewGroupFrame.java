@@ -27,7 +27,6 @@ public class NewGroupFrame extends JFrame{
 		super("New group");
 		this.setSize(400, 300);
 		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.main = main;
 		

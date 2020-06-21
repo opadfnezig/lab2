@@ -20,7 +20,6 @@ public class DelGroupFrame extends JFrame{
 		super("Delete group");
 		this.setSize(400, 200);
 		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.main = main;
 		

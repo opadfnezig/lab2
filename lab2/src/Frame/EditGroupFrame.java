@@ -30,7 +30,6 @@ public class EditGroupFrame extends JFrame{
 		super("Edit group");
 		this.setSize(400, 300);
 		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.main = main;
 		
