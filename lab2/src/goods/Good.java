@@ -49,5 +49,9 @@ public class Good extends SmartContainer
 	
 	
 	
-	public String toString() { return name + " manufacturer:" + manufacturer + " price: " + price + " count: " + count; }
+	public String toString() { 
+		return "--" + name + " | Manufacturer: " + manufacturer 
+				+ " | Price: " + price + " | Count: " + count 
+				+ "\n----" + "Description: " + description; 
+		}
 }

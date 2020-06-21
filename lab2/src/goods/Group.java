@@ -19,9 +19,10 @@ public class Group extends SmartListContainer<Good>
 	protected void add(Good good)  { list.add(good); }
 	public String toString()
 	{
-		String buff = "--Group name: " + this.name;
+		String buff = "--" + this.name + ":";
+		buff+="\n--Description: "+description;
 		for(var i : list) 
-			buff += "\n" + i.toString();
+			buff += "\n--" + i.toString();
 		return buff;
 	}
 }

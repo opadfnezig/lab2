@@ -11,29 +11,37 @@ import exceptions.NotUniqueElementException;
 import goods.*;
 
 public class NewGoodsFrame extends JFrame{
+	private JComboBox<String> groupField;
 	private JTextField nameField, manufacturerField;
 	private JTextArea descriptionField;
 	private JSpinner priceField;
 	private JButton cancel, create;
 	
-	private GroupBase base;
-	private Group group;
+	private MainFrame main;
 	
-	public NewGoodsFrame(GroupBase gb, Group gr) {
+	public NewGoodsFrame(MainFrame main) {
 		super("New goods");
-		this.setSize(400, 300);
+		this.setSize(400, 400);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		base = gb;
-		group = gr;
+		this.main = main;
 		
 		nameField = new JTextField();
 		manufacturerField = new JTextField();
 		descriptionField = new JTextArea("Nothing");
 		priceField = new JSpinner();
 		
+		cancel = new JButton("Cancel");
+		create = new JButton("Create");
+		
+		groupField = new JComboBox<String>();
+		for(Group g:main.base)
+			groupField.addItem(g.getName());
+		
 		this.setLayout(new GridLayout(0, 1));
+		this.add(new JLabel("Group"));
+		this.add(groupField);
 		this.add(new JLabel("Goods name"));
 		this.add(nameField);
 		this.add(new JLabel("Goods manufacturer"));
@@ -52,7 +60,10 @@ public class NewGoodsFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					base.addGood(group.getName(), new Good(nameField.getText(), descriptionField.getText(), manufacturerField.getText(), (double)priceField.getValue()));
+					main.base.addGood((String)groupField.getSelectedItem(), 
+							new Good(nameField.getText(), descriptionField.getText(),
+							manufacturerField.getText(), (int)priceField.getValue()));
+					main.initFileTree();
 					exit();
 				} catch (NotUniqueElementException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());

@@ -17,9 +17,10 @@ import utils.Pair;
 public class GroupBase extends SmartListContainer<Group> implements Collection<Group>
 {
 	private String path;
-	public GroupBase(String path) 
+	public GroupBase(String name, String path) 
 	{
 		super();
+		this.name = name;
 		this.path = path;
 	}
 	
@@ -37,7 +38,7 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 		findGroup(group).add(element);
 	}
 	
-	private Group findGroup(String name)
+	public Group findGroup(String name)
 	{
 		for(var i : list)
 			if(i.getName().equals(name))
@@ -53,12 +54,20 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 		return null;
 	}
 	
+	private int findIndexOfGroup(String name)
+	{
+		for(int i = 0; i < this.list.size(); i++)
+			if(list.get(i).getName().equals(name))
+				return i;
+		return -1;
+	}
+	
 	public Pair findGood(String name)
 	{
 		for(int i = 0;i < list.size();++i)
 			for(int j = 0; j < list.get(i).size();++j)
 				if(list.get(i).get(j).getName().equals(name))
-					return new Pair(i,j);
+					return new Pair(list.get(i),list.get(i).get(j));
 		return null;
 	}
 	
@@ -75,10 +84,14 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 			good.decreaseCount(operation.getCount());
 	}
 	
-	/*public void editGroup(String name, Group group)
+	public void editGroup(String name, String newName, String newDes) throws NotUniqueElementException
 	{
-		findGroup(name) = group;
-	}*/
+		if(findGroup(newName) == null && name != newName)
+			throw new NotUniqueElementException("param 'name' should be unique");
+		Group g = findGroup(name);
+		g.setName(newName);
+		g.setDescription(newDes);
+	}
 	
 	
 	
@@ -98,7 +111,7 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 	
 	public GroupBase load()
 	{
-		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("person.dat"))) { return (GroupBase)ois.readObject(); }
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) { return (GroupBase)ois.readObject(); }
 		catch(Exception ex){ System.out.println(ex.getMessage()); }
 		return null;
 	}
@@ -128,7 +141,7 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 			@Override
 			public boolean hasNext() 
 			{
-				if(list.size() > i+1)
+				if(list.size() > i)
 					return true;
 				return false;
 			}
@@ -136,8 +149,7 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 			@Override
 			public Group next() 
 			{
-				i++;
-				return list.get(i);
+				return list.get(i++);
 			}
 			
 		};

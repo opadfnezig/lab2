@@ -1,46 +1,55 @@
 package Frame;
 
-import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import exceptions.NotUniqueElementException;
 import goods.Group;
-import goods.GroupBase;
 
-public class NewGroupFrame extends JFrame{
-	
+public class EditGroupFrame extends JFrame{
+	private JComboBox<String> groupField;
 	private JTextField nameField;
 	private JTextArea descriptionField;
 	private JButton cancel, create;
 	
 	private MainFrame main;
 	
-	public NewGroupFrame(MainFrame main)
+	public EditGroupFrame(MainFrame main)
 	{
-		super("New group");
+		super("Edit group");
 		this.setSize(400, 300);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.main = main;
 		
+		groupField = new JComboBox<String>();
+		for(Group g:main.base)
+			groupField.addItem(g.getName());
+		
 		nameField = new JTextField();
 		descriptionField = new JTextArea("Nothing");
 		
 		cancel = new JButton("Cancel");
-		create = new JButton("Create");
+		create = new JButton("Edit");
 		
 		this.setLayout(new GridLayout(0, 1));
-		this.add(new JLabel("Group name"));
+		this.add(new JLabel("Group"));
+		this.add(groupField);
+		this.add(new JLabel("New name"));
 		this.add(nameField);
-		this.add(new JLabel("Group description"));
+		this.add(new JLabel("New description"));
 		this.add(descriptionField);
 		
 		JPanel pl = new JPanel(new FlowLayout());
@@ -52,7 +61,8 @@ public class NewGroupFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					main.base.addGroup(new Group(nameField.getText(), descriptionField.getText()));
+					main.base.editGroup((String)groupField.getSelectedItem(), 
+							nameField.getText(), descriptionField.getText());
 					main.initFileTree();
 					exit();
 				} catch (NotUniqueElementException e1) {
@@ -76,3 +86,4 @@ public class NewGroupFrame extends JFrame{
 	
 	private void exit(){this.dispose();}
 }
+

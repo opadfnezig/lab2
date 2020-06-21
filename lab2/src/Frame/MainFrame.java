@@ -1,11 +1,17 @@
 package Frame;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
 import java.io.File;
+import java.text.AttributedCharacterIterator;
 import java.util.StringTokenizer;
 
 import javax.swing.*;
@@ -13,6 +19,9 @@ import javax.swing.border.Border;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 
 import goods.Group;
 import goods.GroupBase;
@@ -28,12 +37,15 @@ public class MainFrame extends JFrame{
 	private JMenuItem newOrder, delOrder, editOrder;
 	
 	private JPanel leftPanel;
-	private JTree fileSystem;
+	private JTree fileSystem = null;
+	private JScrollPane treeView;
 	
 	private JPanel mainPanel;
 	private JTextArea mainTextArea;
 	
-	private GroupBase base;
+	private MainFrame ths;
+	
+	GroupBase base;
 	
 	public MainFrame()
 	{
@@ -41,11 +53,16 @@ public class MainFrame extends JFrame{
 		this.setSize(800, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		ths = this;
+		
+		base = new GroupBase("Storage", "C:\\Users\\Igor\\Storage.dat");
+		base.load();
+		
 		initTopMenu();
-		//initLeftPanel();
+		initLeftPanel();
 		initMainPanel();
 		
-		this.add(topMenu, BorderLayout.PAGE_START);
+		
 		
 		this.setVisible(true);
 	}
@@ -63,6 +80,8 @@ public class MainFrame extends JFrame{
 		topMenu.add(groupMenu);
 		topMenu.add(goodsMenu);
 		topMenu.add(orderMenu);
+		
+		this.add(topMenu, BorderLayout.PAGE_START);
 	}
 	private void initFile()
 	{
@@ -76,14 +95,15 @@ public class MainFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				base.save();
 			}
 		});
 		load.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				base = base.load();
+				initLeftPanel();
 			}
 		});
 		exit.addActionListener(new ActionListener() {
@@ -111,14 +131,14 @@ public class MainFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				NewGroupFrame ngf = new NewGroupFrame(base);
+				NewGroupFrame ngf = new NewGroupFrame(ths);
 			}
 		});
 		editGroup.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				EditGroupFrame egf = new EditGroupFrame(ths);
 			}
 		});
 		delGroup.addActionListener(new ActionListener() {
@@ -145,7 +165,7 @@ public class MainFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				NewGoodsFrame ngf = new NewGoodsFrame(ths);
 			}
 		});
 		editGoods.addActionListener(new ActionListener() {
@@ -209,37 +229,45 @@ public class MainFrame extends JFrame{
 		initFileTree();
 		this.add(leftPanel, BorderLayout.WEST);
 	}
-	private void initFileTree() {
-        DefaultMutableTreeNode top = new DefaultMutableTreeNode(base.getName());
+	void initFileTree() {
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode(base.getName());
         for(Group g:base)
-        	
-        
-        fileSystem = new JTree(top);
-        JScrollPane treeView = new JScrollPane(fileSystem);
-        
-        fileSystem.addTreeSelectionListener(new TreeSelectionListener() {
-			
-			@Override
-			public void valueChanged(TreeSelectionEvent e) {
-				
-				
-			}
-		});
-        
-        leftPanel.add(treeView, BorderLayout.CENTER);
-    }
-    private DefaultMutableTreeNode initTree(File file, DefaultMutableTreeNode node) {
-    	File[] files = file.listFiles();
-    	if (files!=null){
-            for (File f : files) {
-                DefaultMutableTreeNode newDirect = new DefaultMutableTreeNode(f.getName());
-                if (f.isDirectory()) {
-                    initTree(f, newDirect);
-                }
-                node.add(newDirect);
-            }
+        {
+        	DefaultMutableTreeNode newD = new DefaultMutableTreeNode(g.getName());
+        	for(int i = 0; i < g.size(); i++)
+        	{
+        		DefaultMutableTreeNode newG = new DefaultMutableTreeNode(g.get(i).getName());
+        		newD.add(newG);
+        	}
+        	top.add(newD);
         }
-        return node;
+        DefaultTreeModel tree = new DefaultTreeModel(top);
+        if(fileSystem == null)
+        {
+	        fileSystem = new JTree();
+	        fileSystem.setModel(tree);
+	        treeView = new JScrollPane(fileSystem);
+	        leftPanel.add(treeView, BorderLayout.CENTER);
+	        fileSystem.addTreeSelectionListener(new TreeSelectionListener() {
+				
+				@Override
+				public void valueChanged(TreeSelectionEvent e) {
+					StringTokenizer st = new StringTokenizer(e.getPath().toString(), " ,[]");
+					st.nextToken();
+					if(st.countTokens() == 1)
+						mainTextArea.setText(base.findGroup(st.nextToken()).toString());
+					else if(st.countTokens() == 2)
+					{
+						st.nextToken();
+						mainTextArea.setText(base.findGood(st.nextToken()).arg2.toString());
+					}
+					else
+						mainTextArea.setText(base.toString());
+				}
+			});
+        }
+        else
+        	fileSystem.setModel(tree);
     }
 	
     private void initMainPanel()
@@ -258,6 +286,7 @@ public class MainFrame extends JFrame{
     }
     
     private void exit(){this.dispose();}
+    private void update() {this.update(this.getGraphics());}
     
 	public static void main(String[] args) {
 		MainFrame mf = new MainFrame();
