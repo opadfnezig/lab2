@@ -21,9 +21,9 @@ public class Group extends SmartListContainer<Good>
 	public String toString()
 	{
 		String buff = "--" + this.name + ":";
-		buff+="\n--Description: "+description;
 		for(var i : list) 
 			buff += "\n--" + i.toString();
+		buff+="\n--Description: "+description;
 		return buff;
 	}
 }

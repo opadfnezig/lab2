@@ -106,7 +106,7 @@ public class MainFrame extends JFrame{
 					initFileTree();
 				} catch(NullPointerException npe) {
 					JOptionPane.showMessageDialog(null, "Base is not found");
-					base = new GroupBase("StorageGoodsSystem", "C:\\Users\\Igor\\Storage.dat");
+					base = new GroupBase("StorageGoodsSystem", "Storage.dat");
 				}
 			}
 		});
