@@ -58,7 +58,8 @@ public class DelGoodsFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				main.base.findGroup((String)groupField.getSelectedItem())
+					.remove((String)goodsField.getSelectedItem());
 				main.initFileTree();
 				exit();
 			}

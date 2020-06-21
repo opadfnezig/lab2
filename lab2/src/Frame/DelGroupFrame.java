@@ -44,7 +44,7 @@ public class DelGroupFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				main.base.remove((String)groupField.getSelectedItem());
 				main.initFileTree();
 				exit();
 			}
