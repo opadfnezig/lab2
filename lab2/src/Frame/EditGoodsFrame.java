@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import exceptions.NotUniqueElementException;
 import goods.Good;
@@ -60,6 +62,15 @@ public class EditGoodsFrame extends JFrame{
 		JPanel pl = new JPanel(new FlowLayout());
 		pl.add(edit);
 		pl.add(cancel);
+		
+		priceField.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if((int)priceField.getValue() < 0)
+					priceField.setValue(0);
+			}
+		});
 		
 		groupField.addActionListener(new ActionListener() {
 			

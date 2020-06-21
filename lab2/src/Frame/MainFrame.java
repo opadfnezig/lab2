@@ -36,7 +36,7 @@ public class MainFrame extends JFrame{
 	private JMenuItem load, save, exit;
 	private JMenuItem newGroup, delGroup, editGroup;
 	private JMenuItem newGoods, delGoods, editGoods;
-	private JMenuItem newOrder, delOrder, editOrder;
+	private JMenuItem newOrder, delOrder;
 	
 	private JPanel leftPanel;
 	private JTree fileSystem = null;
@@ -195,7 +195,6 @@ public class MainFrame extends JFrame{
 		orderMenu = new JMenu("Order");
 		
 		newOrder = new JMenuItem("New order");
-		editOrder = new JMenuItem("Edit order");
 		delOrder = new JMenuItem("Delete order");
 		
 		newOrder.addActionListener(new ActionListener() {
@@ -203,13 +202,6 @@ public class MainFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				NewOrderFrame nof = new NewOrderFrame(ths);
-			}
-		});
-		editOrder.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				EditOrderFrame eof = new EditOrderFrame(ths);
 			}
 		});
 		delOrder.addActionListener(new ActionListener() {
@@ -221,7 +213,6 @@ public class MainFrame extends JFrame{
 		});
 		
 		orderMenu.add(newOrder);
-		orderMenu.add(editOrder);
 		orderMenu.add(delOrder);
 	}
 	

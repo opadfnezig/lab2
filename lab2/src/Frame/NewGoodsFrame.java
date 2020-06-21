@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import exceptions.NotUniqueElementException;
 import goods.*;
@@ -34,6 +36,15 @@ public class NewGoodsFrame extends JFrame{
 		
 		cancel = new JButton("Cancel");
 		create = new JButton("Create");
+		
+		priceField.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if((int)priceField.getValue() < 0)
+					priceField.setValue(0);
+			}
+		});
 		
 		groupField = new JComboBox<String>();
 		for(Group g:main.base)

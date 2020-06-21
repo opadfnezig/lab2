@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import exceptions.NotEnoughGoodException;
 import exceptions.NotUniqueElementException;
@@ -66,6 +68,15 @@ public class NewOrderFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateGoods();
+			}
+		});
+		
+		countField.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if((int)countField.getValue() < 0)
+					countField.setValue(0);
 			}
 		});
 		
