@@ -19,6 +19,8 @@ public class Good extends ListContainer<Order>
 	
 	public Good(String name,String description,String manufacturer,double price)
 	{
+		if(name.equals("") || name == null)
+			throw new IllegalArgumentException("param 'name' can not be empty");
 		if(name == "" || name == null)
 			throw new IllegalArgumentException("param 'name' can not be empty");
 		if(count < 0)

@@ -19,6 +19,8 @@ public abstract class ListContainer<T> extends SmartContainer implements IArrayL
 	
 	public void edit(int index, T element) throws NotUniqueElementException 
 	{
+		if(name.equals("") || name == null)
+			throw new IllegalArgumentException("param 'name' can not be empty");
 		if(index >= list.size())
 			throw new IndexOutOfBoundsException(index);
 		if(index < 0)
