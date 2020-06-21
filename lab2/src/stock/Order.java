@@ -24,7 +24,7 @@ public class Order extends SmartContainer
 	public Order()
 	{
 		++orderCount; 
-		//name = orderCount.toString();
+		name = orderCount.toString();
 	}
 	
 	public Order(OperationType type,String goodName,int count)
@@ -34,7 +34,7 @@ public class Order extends SmartContainer
 		this.count = count;
 		this.price = -1;
 		++orderCount; 
-		//name = orderCount.toString(); 
+		name = orderCount.toString(); 
 	}
 	
 	public Order(OperationType type,String goodName,int count,int price)
@@ -44,7 +44,7 @@ public class Order extends SmartContainer
 		this.count = count;
 		this.price = price;
 		++orderCount; 
-		//name = orderCount.toString(); 
+		name = orderCount.toString(); 
 	}
 	
 	public void add() {  }

@@ -72,7 +72,7 @@ public class Good extends ListContainer<Order>
 				return i;
 		return -1;
 	}
-	
+
 	@Override
 	public int getElementIndex(String name) 
 	{

@@ -65,7 +65,7 @@ public class GroupBase extends SmartListContainer<Group>
 		for(int i = 0;i < list.size();++i)
 			for(int j = 0; j < list.get(i).size();++j)
 				if(list.get(i).get(j).getName().equals(name))
-					return new Pair(list.get(i),list.get(i).get(j));
+					return new Pair(i,j);
 		return null;
 	}
 	
