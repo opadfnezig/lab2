@@ -45,7 +45,7 @@ public class Good extends ListContainer<Order>
 
 	
 	
-	public void increaseCount(int conut) throws NotEnoughGoodException
+	public void increaseCount(int count) throws NotEnoughGoodException
 	{
 		if(this.count + count < 0)
 			throw new NotEnoughGoodException();
