@@ -17,6 +17,7 @@ public class DelGroupFrame extends JFrame{
 	
 	public DelGroupFrame(MainFrame main)
 	{
+		//iasdasd
 		super("Delete group");
 		this.setSize(400, 200);
 		this.setResizable(false);
