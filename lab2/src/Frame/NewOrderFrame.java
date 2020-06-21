@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import exceptions.NotEnoughGoodException;
 import exceptions.NotUniqueElementException;
 import goods.Good;
 import goods.Group;
@@ -72,6 +73,7 @@ public class NewOrderFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				try {
 				if(purchase.isSelected())
 					main.base.addOrder((String)goodsField.getSelectedItem(), 
 						new Order(OperationType.purchase, (String)goodsField.getSelectedItem(), 
@@ -87,6 +89,9 @@ public class NewOrderFrame extends JFrame{
 				}
 				main.initFileTree();
 				exit();
+				} catch(NotEnoughGoodException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
 			}
 		});
 		cancel.addActionListener(new ActionListener() {
