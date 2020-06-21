@@ -8,4 +8,6 @@ public class EditOrderFrame extends JFrame{
 	public EditOrderFrame(MainFrame main) {
 		
 	}
+	
+	private void exit(){this.dispose();}
 }

@@ -9,5 +9,5 @@ public class DelOrderFrame extends JFrame{
 		
 	}
 	
-	
+	private void exit(){this.dispose();}
 }
