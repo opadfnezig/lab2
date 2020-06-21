@@ -116,10 +116,18 @@ public class GroupBase extends SmartListContainer<Group>
 			throw new NoSuchElementException();
 	}
 	
-	/*void removeGoodByName(String name)
+	void removeGoodByName(String name)
 	{
-		Pair pair = getGoodByName(name);
-		
-		
-	}*/
+		Pair pair = findGood(name);
+		list.get((int) pair.arg1).remove(pair.arg2);
+	}
+	
+	void removeOrderById(String name)
+	{
+		for(int i = 0;i < list.size(); ++i)
+			for(int j = 0; j < list.get(i).size();++j)
+				for(int k = 0; k < list.get(i).get(j).size(); ++k)
+					if(list.get(i).get(j).get(k).getName().equals(name))
+						list.get(i).get(j).remove(k);
+	}
 }
