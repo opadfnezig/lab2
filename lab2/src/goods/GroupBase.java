@@ -119,6 +119,7 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 	public String toString()
 	{
 		String buff = "----All stock:";
+		buff +="\n----Price of all goods: " + this.getPrice();
 		for(var i : list)
 			buff += "\n" + i.toString();
 		return buff;
