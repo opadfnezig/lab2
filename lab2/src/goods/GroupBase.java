@@ -93,14 +93,13 @@ public class GroupBase extends SmartListContainer<Group>
 	
 	public void save()
 	{
-		File file = new File(path);
-		try {
-			file.createNewFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) { oos.writeObject(this); }
+		
+		 try
+		 { 
+			 new File(path).createNewFile();
+			 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
+			 oos.writeObject(this);
+		 }
 	      catch(Exception ex) { System.out.println(ex.getMessage()); } 
 	}
 	
@@ -117,8 +116,10 @@ public class GroupBase extends SmartListContainer<Group>
 			throw new NoSuchElementException();
 	}
 	
-	//void removeGoodByName(String name)
-/*	{
-		Pair pair = new 
+	/*void removeGoodByName(String name)
+	{
+		Pair pair = getGoodByName(name);
+		
+		
 	}*/
 }
