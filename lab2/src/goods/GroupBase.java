@@ -48,7 +48,15 @@ public class GroupBase extends SmartListContainer<Group>
 		return null;
 	}
 	
-	public void addOrder(String name, Order order) { getGoodByName(name).add(order); }
+	public void addOrder(String name, Order order)  throws NotEnoughGoodException
+	{ 
+		getGoodByName(name).add(order); 
+		Good good = getGoodByIndex(findGood(order.getGoodName())); 
+		if(order.getType() == OperationType.purchase)
+			good.increaseCount(order.getCount());
+		else
+			good.decreaseCount(order.getCount());
+	}
 	
 	public Good getGoodByName(String name) { return getGoodByIndex(findGood(name)); }
 	
@@ -62,16 +70,6 @@ public class GroupBase extends SmartListContainer<Group>
 	}
 	
 	public Good getGoodByIndex(Pair pair) { return list.get((int)pair.arg1).get((int)pair.arg2); }
-	
-	
-	public void applyStockOperation(Order operation) throws NotEnoughGoodException
-	{
-		Good good = getGoodByIndex(findGood(operation.getGoodName())); 
-		if(operation.getType() == OperationType.purchase)
-			good.increaseCount(operation.getCount());
-		else
-			good.decreaseCount(operation.getCount());
-	}
 
 	
 	public void editGood(String name, Good good) throws NotUniqueElementException
@@ -112,11 +110,15 @@ public class GroupBase extends SmartListContainer<Group>
 		catch(Exception ex){ System.out.println(ex.getMessage()); }
 		return null;
 	}
-	
-	public void removeElementByName(String name)
+	@Deprecated
+	void removeElementByName(String name)
 	{
 		if(findGroup(name) == null)
 			throw new NoSuchElementException();
 	}
 	
+	//void removeGoodByName(String name)
+/*	{
+		Pair pair = new 
+	}*/
 }
