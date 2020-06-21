@@ -41,6 +41,8 @@ public class EditGroupFrame extends JFrame{
 		nameField = new JTextField();
 		descriptionField = new JTextArea("Nothing");
 		
+		updateTextFields();
+		
 		cancel = new JButton("Cancel");
 		create = new JButton("Edit");
 		
@@ -55,6 +57,14 @@ public class EditGroupFrame extends JFrame{
 		JPanel pl = new JPanel(new FlowLayout());
 		pl.add(create);
 		pl.add(cancel);
+		
+		groupField.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateTextFields();
+			}
+		});
 		
 		create.addActionListener(new ActionListener() {
 			
@@ -82,6 +92,16 @@ public class EditGroupFrame extends JFrame{
 		this.add(pl);
 		
 		this.setVisible(true);
+	}
+	
+	private void updateTextFields()
+	{
+		Group gr = main.base.findGroup((String)groupField.getSelectedItem());
+		if(gr != null)
+		{
+			nameField.setText(gr.getName());
+			descriptionField.setText(gr.getDescription());
+		}
 	}
 	
 	private void exit(){this.dispose();}

@@ -9,6 +9,8 @@ import java.awt.Shape;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.text.AttributedCharacterIterator;
@@ -62,8 +64,6 @@ public class MainFrame extends JFrame{
 		initLeftPanel();
 		initMainPanel();
 		
-		
-		
 		this.setVisible(true);
 	}
 	
@@ -87,8 +87,8 @@ public class MainFrame extends JFrame{
 	{
 		fileMenu = new JMenu("File");
 		
-		save = new JMenuItem("Save  Ctrl+s");
-		load = new JMenuItem("Load  Ctrl+l");
+		save = new JMenuItem("Save");
+		load = new JMenuItem("Load");
 		exit = new JMenuItem("Exit");
 		
 		save.addActionListener(new ActionListener() {
@@ -145,7 +145,7 @@ public class MainFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				DelGroupFrame dgf = new DelGroupFrame(ths);
 			}
 		});
 		
@@ -172,7 +172,7 @@ public class MainFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				EditGoodsFrame egf = new EditGoodsFrame(ths);
 			}
 		});
 		delGoods.addActionListener(new ActionListener() {

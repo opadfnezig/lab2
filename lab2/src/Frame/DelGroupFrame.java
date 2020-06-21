@@ -44,7 +44,7 @@ public class DelGroupFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				main.initFileTree();
 				exit();
 			}
 		});
@@ -55,6 +55,8 @@ public class DelGroupFrame extends JFrame{
 				exit();
 			}
 		});
+		
+		this.setVisible(true);
 	}
 	
 	private void exit(){this.dispose();}

@@ -88,7 +88,7 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 
 	public void editGroup(String name, String newName, String newDes) throws NotUniqueElementException
 	{
-		if(findGroup(newName) == null && name != newName)
+		if(findGroup(newName) != null && name != newName)
 			throw new NotUniqueElementException("param 'name' should be unique");
 		Group g = findGroup(name);
 		g.setName(newName);
