@@ -27,6 +27,7 @@ import javax.swing.tree.TreePath;
 
 import goods.Group;
 import goods.GroupBase;
+import utils.Pair;
 
 public class MainFrame extends JFrame{
 
@@ -255,7 +256,8 @@ public class MainFrame extends JFrame{
 					else if(st.countTokens() == 2)
 					{
 						st.nextToken();
-						mainTextArea.setText(base.findGood(st.nextToken()).arg2.toString());
+						Pair p = base.findGood(st.nextToken());
+						mainTextArea.setText(base.get((int)p.arg1).get((int)p.arg2).toString());
 					}
 					else
 						mainTextArea.setText(base.toString());

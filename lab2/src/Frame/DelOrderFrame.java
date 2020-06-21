@@ -41,6 +41,8 @@ public class DelOrderFrame extends JFrame{
 		this.add(groupField);
 		this.add(new JLabel("Goods"));
 		this.add(goodsField);
+		this.add(new JLabel("Orders"));
+		this.add(ordersField);
 		
 		JPanel pl = new JPanel(new FlowLayout());
 		pl.add(delete);
@@ -99,7 +101,7 @@ public class DelOrderFrame extends JFrame{
 		Pair p = main.base.findGood((String)goodsField.getSelectedItem());
 		if(p != null)
 		{
-			Good g = (Good)p.arg2;
+			Good g = main.base.get((int)p.arg1).get((int)p.arg2);
 			for(int i = 0; i < g.size(); i++)
 				ordersField.addItem(g.get(i).toString());
 		}

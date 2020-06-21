@@ -12,6 +12,7 @@ import javax.swing.event.ChangeListener;
 import exceptions.NotUniqueElementException;
 import goods.Good;
 import goods.Group;
+import utils.Pair;
 
 public class EditGoodsFrame extends JFrame{
 	private JComboBox<String> groupField, goodsField;
@@ -131,7 +132,8 @@ public class EditGoodsFrame extends JFrame{
 	{
 		if(goodsField.getSelectedItem() != null)
 		{
-			Good g = (Good)main.base.findGood((String)goodsField.getSelectedItem()).arg2;
+			Pair p = main.base.findGood((String)goodsField.getSelectedItem());
+			Good g = main.base.get((int)p.arg1).get((int)p.arg2);
 			if(g != null)
 			{
 				nameField.setText(g.getName());
