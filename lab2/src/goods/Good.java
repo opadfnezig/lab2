@@ -1,20 +1,19 @@
 package goods;
 
-import abstractClasses.SmartContainer;
-import exceptions.NotEnoughGoodException;
+import java.util.NoSuchElementException;
 
-public class Good extends SmartContainer 
+import abstractClasses.ListContainer;
+import abstractClasses.SmartContainer;
+import abstractClasses.SmartListContainer;
+import exceptions.NotEnoughGoodException;
+import exceptions.NotUniqueElementException;
+import stock.Order;
+
+public class Good extends ListContainer<Order>
 {	
 	private String manufacturer;
 	private int count;
 	private double price;
-	
-	public String getManufacturer() { return manufacturer; }
-	public void setManufacturer(String manufacturer) { this.manufacturer = manufacturer; }
-	public int getCount() { return count; }
-	public void setCount(int count) { this.count = count; }
-	public double getPrice() { return price; }
-	public void setPrice(double price) { this.price = price; }
 	
 	public Good() { }
 	
@@ -33,6 +32,18 @@ public class Good extends SmartContainer
 		this.price = price;
 	}
 	
+	public String getManufacturer() { return manufacturer; }
+	public void setManufacturer(String manufacturer) { this.manufacturer = manufacturer; }
+	public int getCount() { return count; }
+	public void setCount(int count) { this.count = count; }
+	
+	@Override
+	public double getPrice() { return price; }
+	
+	public void setPrice(double price) { this.price = price; }
+	
+
+	
 	
 	public void increaseCount(int conut) throws NotEnoughGoodException
 	{
@@ -47,11 +58,42 @@ public class Good extends SmartContainer
 		this.count -= count;
 	}
 	
-	
-	
 	public String toString() { 
 		return "--" + name + " | Manufacturer: " + manufacturer 
 				+ " | Price: " + price + " | Count: " + count 
 				+ "\n----" + "Description: " + description; 
 		}
+	@Override
+	public int getElementIndex(Order element) {
+		for(int i = 0;i< list.size();++i)
+			if(list.get(i).getName().equals(element.getName()))
+				return i;
+		return -1;
+	}
+	
+	@Override
+	public int getElementIndex(String name) {
+		for(int i = 0; i < this.size();++i)
+			if(get(i).getName().equals(name))
+				return i;
+		return -1;
+	}
+	
+	@Override
+	public void edit(String name, Order element) throws NotUniqueElementException {
+		set(getElementIndex(name),element);
+		
+	}
+
+	@Override
+	public void edit(String name, String newName, String newDes) throws NotUniqueElementException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Order get(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -52,7 +52,7 @@ public class NewGroupFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					main.base.addGroup(new Group(nameField.getText(), descriptionField.getText()));
+					main.base.addElement(new Group(nameField.getText(), descriptionField.getText()));
 					main.initFileTree();
 					exit();
 				} catch (NotUniqueElementException e1) {

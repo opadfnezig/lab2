@@ -4,8 +4,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import abstractClasses.SmartListContainer;
 import exceptions.NotEnoughGoodException;
@@ -14,9 +16,13 @@ import stock.Order;
 import stock.Order.OperationType;
 import utils.Pair;
 
-public class GroupBase extends SmartListContainer<Group> implements Collection<Group>
+public class GroupBase extends SmartListContainer<Group> 
 {
 	private String path;
+	
+	public String getPath() { return path; }
+	public void setPath(String path) { this.path = path; }
+	
 	public GroupBase(String name, String path) 
 	{
 		super();
@@ -24,11 +30,10 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 		this.path = path;
 	}
 	
+	@Deprecated
 	public void addGroup(Group element) throws NotUniqueElementException 
 	{
-		if(getElementIndex(element) != -1)
-			throw new NotUniqueElementException("param 'name' should be unique");
-		list.add(element);
+		addElement(element);
 	}
 	
 	public void addGood(String group,Good element) throws NotUniqueElementException
@@ -40,28 +45,20 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 	
 	public Group findGroup(String name)
 	{
+		get(getElementIndex(name));
+		
 		for(var i : list)
 			if(i.getName().equals(name))
 				return i;
 		return null;
 	}
 	
-	private Group findGroup(Group group)
-	{
-		for(var i : list)
-			if(i.getName().equals(group.getName()))
-				return i;
-		return null;
-	}
+	public void addOrder(String name, Order order) { getGoodByName(name).add(order); }
 	
-	private int getGroupIndex(String name)
-	{
-		for(int i = 0;i < list.size();++i)
-
-			if(list.get(i).getName().equals(name))
-				return i;
-		return -1;
-	}
+	@Deprecated
+	private int getGroupIndex(String name) { return getElementIndex(name); }
+	
+	public Good getGoodByName(String name) { return getGoodByIndex(findGood(name)); }
 	
 	public Pair findGood(String name)
 	{
@@ -72,7 +69,6 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 		return null;
 	}
 	
-	public Good getGoodByIndex(int i,int j) { return list.get(i).get(j); }
 	public Good getGoodByIndex(Pair pair) { return list.get((int)pair.arg1).get((int)pair.arg2); }
 	
 	
@@ -85,22 +81,11 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 			good.decreaseCount(operation.getCount());
 	}
 	
-
-	public void editGroup(String name, String newName, String newDes) throws NotUniqueElementException
-	{
-		if(findGroup(newName) == null && name != newName)
-			throw new NotUniqueElementException("param 'name' should be unique");
-		Group g = findGroup(name);
-		g.setName(newName);
-		g.setDescription(newDes);
-	}
-	public void editGroup(String name, Group group) throws NotUniqueElementException
-	{
-		if( name == group.getName() || getGroupIndex(group.getName()) == -1)
-			list.set(getGroupIndex(name),group);
-		else
-			throw new NotUniqueElementException("param 'name' should be unique");
-	}
+	@Deprecated
+	public void editGroup(String name, String newName, String newDes) throws NotUniqueElementException { edit(name,newName, newDes); }
+	
+	@Deprecated
+	public void editGroup(String name, Group group) throws NotUniqueElementException { edit(name, group); }
 	
 	public void editGood(String name, Good good) throws NotUniqueElementException
 	{
@@ -113,8 +98,6 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 		else
 			throw new NotUniqueElementException("param 'name' should be unique");
 	}
-	
-	
 	
 	public String toString()
 	{
@@ -136,92 +119,10 @@ public class GroupBase extends SmartListContainer<Group> implements Collection<G
 		catch(Exception ex){ System.out.println(ex.getMessage()); }
 		return null;
 	}
-
-	@Override
-	public boolean isEmpty() 
+	
+	public void removeElementByName(String name)
 	{
-		if(list.size() == 0)
-			return true;
-		return false;
-	}
-
-	@Override
-	public boolean contains(Object o) 
-	{
-		if(findGroup((Group)o) != null)
-			return true;
-		return false;
-	}
-
-	@Override
-	public Iterator<Group> iterator() 
-	{
-		Iterator<Group> i = new Iterator<Group>()
-		{
-			int i = 0;
-			@Override
-			public boolean hasNext() 
-			{
-				if(list.size() > i)
-					return true;
-				return false;
-			}
-
-			@Override
-			public Group next() 
-			{
-				return list.get(i++);
-			}
-		};
-		return i;
-	}
-
-	@Override
-	public Object[] toArray() { return list.toArray(); }
-
-	@Override
-	public <T> T[] toArray(T[] a) { return (T[]) list.toArray(); }
-
-	@Override
-	public boolean add(Group e) { list.add(e); return true; }
-
-	@Override
-	public boolean remove(Object o) 
-	{	
-		remove(findGroup((Group)o));
-		return true;
-	}
-
-	@Override
-	public boolean containsAll(Collection<?> c) {
-		for(var a : c)
-			if(!contains(a))
-				return false;
-		return true;
-	}
-
-	@Override
-	public boolean addAll(Collection<? extends Group> c) {
-		for(var i : c)
-			add(i);
-		return true;
-	}
-
-	@Override
-	public boolean removeAll(Collection<?> c) {
-		for(var i : c)
-			remove(i);
-		return true;
-	}
-
-	@Override
-	public boolean retainAll(Collection<?> c) {
-		return false;
-	}
-
-	@Override
-	public void clear() {
-		for(int i = 0;i < this.size();++i)
-			list.remove(i);
+		if(findGroup(name) == null)
+			throw new NoSuchElementException();
 	}
 }

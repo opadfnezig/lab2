@@ -1,22 +1,27 @@
 package abstractClasses;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
+
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ElementVisitor;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.Name;
+import javax.lang.model.type.TypeMirror;
 
 import exceptions.NotUniqueElementException;
+import goods.Group;
 import interfaces.IArrayListContainer;
 
-public abstract class SmartListContainer<T extends SmartContainer> extends SmartContainer implements IArrayListContainer<T>
+public abstract class SmartListContainer<T extends SmartContainer> extends ListContainer<T> implements IArrayListContainer<T>
 {
-	protected ArrayList<T> list;
-	public SmartListContainer() { list = new ArrayList<T>(); }
-	public SmartListContainer(String name, String description, ArrayList<T> list) 
-	{
-		super(name,description);
-		list = new ArrayList<T>();
-	}
-	
-	@Override
-	public void remove(int index) { list.remove(index); }
 	@Override
 	public int getElementIndex(T element) 
 	{
@@ -25,41 +30,18 @@ public abstract class SmartListContainer<T extends SmartContainer> extends Smart
 				return i;
 		return -1;
 	}
+	
 	@Override
-	public void edit(int index, T element) 
+	public int getElementIndex(String name)
 	{
-		if(index >= list.size())
-			throw new IndexOutOfBoundsException(index);
-		if(index < 0)
-			throw new IllegalArgumentException();
-		list.set(index, element);
+		for(int i = 0;i< list.size();++i)
+			if(list.get(i).getName().equals(name))
+				return i;
+		return -1;
 	}
-	@Override
-	public void edit(int index, String name, String description) 
-	{ 
-		T buff = list.get(index);
-		buff.setName(name);
-		buff.setDescription(description);
-		edit(index,buff);
-	}
-	@Override
-	public void editDescription(int index, String description) 
-	{
-		T buff = list.get(index);
-		buff.setDescription(description);
-		edit(index,buff);
-	}
-	@Override
-	public void editName(int index, String name) 
-	{
-		T buff = list.get(index);
-		buff.setName(name);
-		edit(index,buff);
-	}
-	@Override
-	public T get(int index) { return list.get(index); }
-	@Override
-	public int size() { return list.size(); }
+	
+	
+	
 	
 	@Override
 	public double getPrice()
@@ -69,4 +51,34 @@ public abstract class SmartListContainer<T extends SmartContainer> extends Smart
 			price += i.getPrice();
 		return price;
 	}
+
+	@Override
+	public void edit(String name, T element) throws NotUniqueElementException
+	{
+		if(get(element.getName()) == null || name == element.getName())
+			throw new NotUniqueElementException();
+		list.set(getElementIndex(name),element);
+	}
+	
+
+	
+	@Override
+	public void edit(String name, String newName, String newDes) throws NotUniqueElementException 
+	{
+		if(get(newName) == null || name == newName)
+			throw new NotUniqueElementException("param 'name' should be unique");
+		T buff = get(name);
+		buff.setDescription(newDes);
+		buff.setDescription(newDes);
+	}
+
+	@Override
+	public T get(String name) 
+	{
+		if(getElementIndex(name) == -1)
+			return null;
+		return get(getElementIndex(name)); 
+	}
+
+	void set(String name, T element) { set(getElementIndex(name),element); }
 }

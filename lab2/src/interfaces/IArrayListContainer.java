@@ -1,16 +1,19 @@
 package interfaces;
 
+import java.util.NoSuchElementException;
+
 import exceptions.NotUniqueElementException;
+import goods.Group;
 
 public interface IArrayListContainer<T>
 {
 	public void remove(int index);
 	public int getElementIndex(T element);
-	public void edit(int index, T element);
-	public void edit(int index, String name,String description);
-	public void editDescription(int index,String description);
-	public void editName(int index,String name);
+	public int getElementIndex(String name);
+	public void edit(int index, T element) throws NotUniqueElementException;
+	public void edit(String name, T element) throws NotUniqueElementException;
+	public void edit(String name, String newName, String newDes) throws NotUniqueElementException;
 	public T get(int index);
-	public int size();
+	public T get(String name);
 	public double getPrice();
 }
