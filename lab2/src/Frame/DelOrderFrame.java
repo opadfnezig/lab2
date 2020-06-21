@@ -7,7 +7,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import goods.Good;
 import goods.Group;
+import utils.Pair;
 
 public class DelOrderFrame extends JFrame{
 	private JComboBox<String> groupField, goodsField, ordersField;
@@ -52,12 +54,20 @@ public class DelOrderFrame extends JFrame{
 				updateGoods();
 			}
 		});
+		goodsField.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateOreders();
+			}
+		});
 		
 		delete.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				Good g = (Good)main.base.findGood((String)goodsField.getSelectedItem()).arg2;
+				g.remove(ordersField.getSelectedIndex());
 				main.initFileTree();
 				exit();
 			}
@@ -82,6 +92,19 @@ public class DelOrderFrame extends JFrame{
 		if(gr != null)
 			for(int i = 0; i < gr.size(); i++)
 				goodsField.addItem(gr.get(i).getName());
+	}
+	
+	private void updateOreders()
+	{
+		ordersField.removeAllItems();
+		Pair p = main.base.findGood((String)goodsField.getSelectedItem());
+		if(p != null)
+		{
+			Good g = (Good)p.arg2;
+			for(int i = 0; i < g.size(); i++)
+				ordersField.addItem(g.get(i).toString());
+		}
+			
 	}
 	
 	private void exit(){this.dispose();}
