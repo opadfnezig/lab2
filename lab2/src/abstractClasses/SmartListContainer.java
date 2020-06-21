@@ -20,7 +20,7 @@ import exceptions.NotUniqueElementException;
 import goods.Group;
 import interfaces.IArrayListContainer;
 
-public abstract class SmartListContainer<T extends SmartContainer> extends ListContainer<T> implements IArrayListContainer<T>
+public abstract class SmartListContainer<T extends SmartContainer> extends ListContainer<T>
 {
 	@Override
 	public int getElementIndex(T element) 
