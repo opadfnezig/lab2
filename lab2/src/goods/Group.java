@@ -15,8 +15,9 @@ public class Group extends SmartListContainer<Good>
 		this.description = description;
 		list = new ArrayList<Good>();
 	}
+	
 	protected void set(int index, Good good) { list.set(index, good); }
-	protected void add(Good good)  { list.add(good); }
+	
 	public String toString()
 	{
 		String buff = "--" + this.name + ":";
