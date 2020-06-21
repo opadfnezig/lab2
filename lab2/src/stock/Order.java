@@ -21,7 +21,7 @@ public class Order extends SmartContainer
 	public int getCount() { return count; }
 	public void setCount(int count) { this.count = count; }
 	
-	public Order() 
+	public Order()
 	{
 		++orderCount; 
 		name = orderCount.toString(); 
@@ -46,4 +46,6 @@ public class Order extends SmartContainer
 		++orderCount; 
 		name = orderCount.toString(); 
 	}
+	
+	public void add() {  }
 }

@@ -80,30 +80,6 @@ public class GroupBase extends SmartListContainer<Group>
 		else
 			good.decreaseCount(operation.getCount());
 	}
-	
-
-
-	public void editGroup(String name, String newName, String newDes) throws NotUniqueElementException
-	{
-		if(findGroup(newName) != null && name != newName)
-			throw new NotUniqueElementException("param 'name' should be unique");
-		Group g = findGroup(name);
-		g.setName(newName);
-		g.setDescription(newDes);
-	}
-	public void editGroup(String name, Group group) throws NotUniqueElementException
-	{
-		if( name == group.getName() || getGroupIndex(group.getName()) == -1)
-			list.set(getGroupIndex(name),group);
-		else
-			throw new NotUniqueElementException("param 'name' should be unique");
-	}
-
-	@Deprecated
-	public void editGroup(String name, String newName, String newDes) throws NotUniqueElementException { edit(name,newName, newDes); }
-	
-	@Deprecated
-	public void editGroup(String name, Group group) throws NotUniqueElementException { edit(name, group); }
 
 	
 	public void editGood(String name, Good good) throws NotUniqueElementException

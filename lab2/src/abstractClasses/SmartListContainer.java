@@ -40,9 +40,6 @@ public abstract class SmartListContainer<T extends SmartContainer> extends ListC
 		return -1;
 	}
 	
-	
-	
-	
 	@Override
 	public double getPrice()
 	{
