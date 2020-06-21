@@ -102,8 +102,12 @@ public class MainFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				base = base.load();
-				initLeftPanel();
+				try{
+					base = base.load();
+					initFileTree();
+				} catch(NullPointerException npe) {
+					JOptionPane.showMessageDialog(null, "Base is not found");
+				}
 			}
 		});
 		exit.addActionListener(new ActionListener() {
