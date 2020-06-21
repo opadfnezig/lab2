@@ -58,13 +58,15 @@ public class Good extends ListContainer<Order>
 		this.count -= count;
 	}
 	
-	public String toString() { 
+	public String toString() 
+	{ 
 		return "--" + name + " | Manufacturer: " + manufacturer 
 				+ " | Price: " + price + " | Count: " + count 
 				+ "\n----" + "Description: " + description; 
-		}
+	}
 	@Override
-	public int getElementIndex(Order element) {
+	public int getElementIndex(Order element) 
+	{
 		for(int i = 0;i< list.size();++i)
 			if(list.get(i).getName().equals(element.getName()))
 				return i;
@@ -72,7 +74,8 @@ public class Good extends ListContainer<Order>
 	}
 	
 	@Override
-	public int getElementIndex(String name) {
+	public int getElementIndex(String name) 
+	{
 		for(int i = 0; i < this.size();++i)
 			if(get(i).getName().equals(name))
 				return i;
@@ -80,15 +83,13 @@ public class Good extends ListContainer<Order>
 	}
 	
 	@Override
-	public void edit(String name, Order element) throws NotUniqueElementException {
-		set(getElementIndex(name),element);
-		
-	}
+	public void edit(String name, Order element) throws NotUniqueElementException { set(getElementIndex(name),element);  }
 
 	@Override
-	public void edit(String name, String newName, String newDes) throws NotUniqueElementException {
+	public void edit(String name, String newName, String newDes) throws NotUniqueElementException 
+	{
 		// TODO Auto-generated method stub
-		
+		return;
 	}
 
 	@Override

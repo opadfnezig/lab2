@@ -79,13 +79,11 @@ public class GroupBase extends SmartListContainer<Group>
 	public void editGood(String name, Good good) throws NotUniqueElementException
 	{
 		Pair data;
-		if(name == good.getName() || findGood(good.getName()) == null)
-		{
-			data = findGood(name);
-		 	list.get((int)data.arg1).set((int)data.arg2,good);
-		}
-		else
+		if(name != good.getName() && findGood(good.getName()) != null)
 			throw new NotUniqueElementException("param 'name' should be unique");
+		data = findGood(name);
+	 	list.get((int)data.arg1).set((int)data.arg2,good);
+			
 	}
 	
 	public String toString()
@@ -122,4 +120,5 @@ public class GroupBase extends SmartListContainer<Group>
 		if(findGroup(name) == null)
 			throw new NoSuchElementException();
 	}
+	
 }
