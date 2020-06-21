@@ -57,7 +57,11 @@ public class MainFrame extends JFrame{
 		
 		ths = this;
 		
+
 		base = new GroupBase("StorageGoodsSystem", "C:\\Users\\Igor\\Storage.dat");
+
+		base = new GroupBase("StorageGoodsSystem", "Storage.dat");
+
 		
 		initTopMenu();
 		initLeftPanel();
