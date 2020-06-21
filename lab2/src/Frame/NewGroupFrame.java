@@ -56,6 +56,8 @@ public class NewGroupFrame extends JFrame{
 					exit();
 				} catch (NotUniqueElementException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
+				} catch (IllegalArgumentException iae) {
+					JOptionPane.showMessageDialog(null, iae.getMessage());
 				}
 				
 			}
