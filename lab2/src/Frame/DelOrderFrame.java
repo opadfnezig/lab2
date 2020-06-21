@@ -67,7 +67,8 @@ public class DelOrderFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Good g = (Good)main.base.findGood((String)goodsField.getSelectedItem()).arg2;
+				Pair p = main.base.findGood((String)goodsField.getSelectedItem());
+				Good g = main.base.getGoodByIndex(p);
 				g.remove(ordersField.getSelectedIndex());
 				main.initFileTree();
 				exit();
