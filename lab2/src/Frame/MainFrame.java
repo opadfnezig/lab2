@@ -57,7 +57,7 @@ public class MainFrame extends JFrame{
 		
 		ths = this;
 		
-		base = new GroupBase("Storage", "C:\\Users\\Igor\\Storage.dat");
+		base = new GroupBase("StorageGoodsSystem", "C:\\Users\\Igor\\Storage.dat");
 		base.load();
 		
 		initTopMenu();
@@ -179,7 +179,7 @@ public class MainFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				DelGoodsFrame dgf = new DelGoodsFrame(ths);
 			}
 		});
 		
@@ -199,21 +199,21 @@ public class MainFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				NewOrderFrame nof = new NewOrderFrame(ths);
 			}
 		});
 		editOrder.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				EditOrderFrame eof = new EditOrderFrame(ths);
 			}
 		});
 		delOrder.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				DelOrderFrame dof = new DelOrderFrame(ths);
 			}
 		});
 		
@@ -228,6 +228,7 @@ public class MainFrame extends JFrame{
 		leftPanel.setBorder(border);
 		initFileTree();
 		this.add(leftPanel, BorderLayout.WEST);
+		
 	}
 	void initFileTree() {
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode(base.getName());

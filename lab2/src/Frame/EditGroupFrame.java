@@ -21,7 +21,7 @@ public class EditGroupFrame extends JFrame{
 	private JComboBox<String> groupField;
 	private JTextField nameField;
 	private JTextArea descriptionField;
-	private JButton cancel, create;
+	private JButton cancel, edit;
 	
 	private MainFrame main;
 	
@@ -44,7 +44,7 @@ public class EditGroupFrame extends JFrame{
 		updateTextFields();
 		
 		cancel = new JButton("Cancel");
-		create = new JButton("Edit");
+		edit = new JButton("Edit");
 		
 		this.setLayout(new GridLayout(0, 1));
 		this.add(new JLabel("Group"));
@@ -55,7 +55,7 @@ public class EditGroupFrame extends JFrame{
 		this.add(descriptionField);
 		
 		JPanel pl = new JPanel(new FlowLayout());
-		pl.add(create);
+		pl.add(edit);
 		pl.add(cancel);
 		
 		groupField.addActionListener(new ActionListener() {
@@ -66,7 +66,7 @@ public class EditGroupFrame extends JFrame{
 			}
 		});
 		
-		create.addActionListener(new ActionListener() {
+		edit.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {

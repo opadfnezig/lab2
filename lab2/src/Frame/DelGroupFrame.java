@@ -17,7 +17,7 @@ public class DelGroupFrame extends JFrame{
 	
 	public DelGroupFrame(MainFrame main)
 	{
-		super("New group");
+		super("Delete group");
 		this.setSize(400, 200);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,6 +44,7 @@ public class DelGroupFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				main.initFileTree();
 				exit();
 			}

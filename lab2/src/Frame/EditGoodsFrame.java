@@ -16,7 +16,7 @@ public class EditGoodsFrame extends JFrame{
 	private JTextField nameField, manufacturerField;
 	private JTextArea descriptionField;
 	private JSpinner priceField;
-	private JButton cancel, create;
+	private JButton cancel, edit;
 	
 	private MainFrame main;
 	
@@ -34,7 +34,7 @@ public class EditGoodsFrame extends JFrame{
 		priceField = new JSpinner();
 		
 		cancel = new JButton("Cancel");
-		create = new JButton("Edit");
+		edit = new JButton("Edit");
 		
 		groupField = new JComboBox<String>();
 		for(Group g:main.base)
@@ -58,7 +58,7 @@ public class EditGoodsFrame extends JFrame{
 		this.add(descriptionField);
 		
 		JPanel pl = new JPanel(new FlowLayout());
-		pl.add(create);
+		pl.add(edit);
 		pl.add(cancel);
 		
 		groupField.addActionListener(new ActionListener() {
@@ -77,7 +77,7 @@ public class EditGoodsFrame extends JFrame{
 			}
 		});
 		
-		create.addActionListener(new ActionListener() {
+		edit.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
