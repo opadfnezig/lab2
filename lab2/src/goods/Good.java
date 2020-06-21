@@ -60,9 +60,12 @@ public class Good extends ListContainer<Order>
 	
 	public String toString() 
 	{ 
-		return "--" + name + " | Manufacturer: " + manufacturer 
+		String str = "--" + name + " | Manufacturer: " + manufacturer 
 				+ " | Price: " + price + " | Count: " + count 
 				+ "\n----" + "Description: " + description; 
+		for(Order o:list)
+			str+="\n--" + o;
+		return str;
 	}
 	@Override
 	public int getElementIndex(Order element) 

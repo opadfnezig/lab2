@@ -47,5 +47,15 @@ public class Order extends SmartContainer
 		name = orderCount.toString(); 
 	}
 	
+	public String toString()
+	{
+		String str = "----ID:" + name + " Count: " + count;
+		if(type == OperationType.purchase)
+			str+= " Type: purchase";
+		else
+			str+= " Type: sale";
+		return str;
+	}
+	
 	public void add() {  }
 }
