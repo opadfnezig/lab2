@@ -87,5 +87,7 @@ public class Good extends ListContainer<Order>
 		return -1;
 	}
 	
+	public Order get(int index) { return list.get(index); }
+	public int size() { return list.size(); }
 
 }

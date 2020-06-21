@@ -50,12 +50,13 @@ public class GroupBase extends SmartListContainer<Group>
 	
 	public void addOrder(String name, Order order)  throws NotEnoughGoodException
 	{ 
-		getGoodByName(name).add(order); 
 		Good good = getGoodByIndex(findGood(order.getGoodName())); 
 		if(order.getType() == OperationType.purchase)
 			good.increaseCount(order.getCount());
 		else
 			good.decreaseCount(order.getCount());
+		getGoodByName(name).add(order); 
+		
 	}
 	
 	public Good getGoodByName(String name) { return getGoodByIndex(findGood(name)); }
@@ -93,7 +94,6 @@ public class GroupBase extends SmartListContainer<Group>
 	
 	public void save()
 	{
-		
 		 try
 		 { 
 			 new File(path).createNewFile();
