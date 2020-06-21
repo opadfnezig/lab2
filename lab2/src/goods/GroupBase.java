@@ -1,7 +1,9 @@
 package goods;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -30,11 +32,6 @@ public class GroupBase extends SmartListContainer<Group>
 		this.path = path;
 	}
 	
-	@Deprecated
-	public void addGroup(Group element) throws NotUniqueElementException 
-	{
-		addElement(element);
-	}
 	
 	public void addGood(String group,Good element) throws NotUniqueElementException
 	{
@@ -54,9 +51,6 @@ public class GroupBase extends SmartListContainer<Group>
 	}
 	
 	public void addOrder(String name, Order order) { getGoodByName(name).add(order); }
-	
-	@Deprecated
-	private int getGroupIndex(String name) { return getElementIndex(name); }
 	
 	public Good getGoodByName(String name) { return getGoodByIndex(findGood(name)); }
 	
@@ -105,6 +99,13 @@ public class GroupBase extends SmartListContainer<Group>
 	
 	public void save()
 	{
+		File file = new File(path);
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) { oos.writeObject(this); }
 	      catch(Exception ex) { System.out.println(ex.getMessage()); } 
 	}

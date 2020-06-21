@@ -12,6 +12,7 @@ public abstract class ListContainer<T> extends SmartContainer implements IArrayL
 	protected ArrayList<T> list;
 	ArrayList<T> getList() { return list; }
 	void setList(ArrayList<T> list) { this.list = list; }
+	public ListContainer() { list = new ArrayList<T>(); }
 	
 	public void remove(int index) { list.remove(index); }
 	

@@ -71,7 +71,7 @@ public class EditGroupFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					main.base.editGroup((String)groupField.getSelectedItem(), 
+					main.base.edit((String)groupField.getSelectedItem(), 
 							nameField.getText(), descriptionField.getText());
 					main.initFileTree();
 					exit();
