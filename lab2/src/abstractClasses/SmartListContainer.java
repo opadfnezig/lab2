@@ -55,7 +55,7 @@ public abstract class SmartListContainer<T extends SmartContainer> extends ListC
 		if(name.equals("") || name == null)
 			throw new IllegalArgumentException("param 'name' can not be empty");
 		if(get(element.getName()) != null && name.equals(element.getName()))
-			throw new NotUniqueElementException();
+			throw new NotUniqueElementException("param 'name' should be unique");
 		list.set(getElementIndex(name),element);
 	}
 	
