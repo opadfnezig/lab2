@@ -42,6 +42,8 @@ public class Good extends ListContainer<Order>
 	@Override
 	public double getPrice() { return price * count; }
 	
+	public double getPriceForOne() {return price;}
+	
 	public void setPrice(double price) { this.price = price; }
 	
 

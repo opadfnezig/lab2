@@ -95,7 +95,7 @@ public class EditGoodsFrame extends JFrame{
 				try {
 					main.base.editGood((String)goodsField.getSelectedItem(), 
 							new Good(nameField.getText(), descriptionField.getText(),
-							manufacturerField.getText(), (double)priceField.getValue()));
+							manufacturerField.getText(), (int)priceField.getValue()));
 					main.initFileTree();
 					exit();
 				} catch (NotUniqueElementException e1) {
@@ -139,7 +139,7 @@ public class EditGoodsFrame extends JFrame{
 				nameField.setText(g.getName());
 				manufacturerField.setText(g.getManufacturer());
 				descriptionField.setText(g.getDescription());
-				priceField.setValue(g.getPrice());
+				priceField.setValue((int)g.getPriceForOne());
 			}
 		}
 	}

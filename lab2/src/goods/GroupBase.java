@@ -76,7 +76,7 @@ public class GroupBase extends SmartListContainer<Group>
 	public void editGood(String name, Good good) throws NotUniqueElementException
 	{
 		Pair data;
-		if(name.equals(good.getName()) && findGood(good.getName()) != null)
+		if(!name.equals(good.getName()) && findGood(good.getName()) != null)
 			throw new NotUniqueElementException("param 'name' should be unique");
 		data = findGood(name);
 	 	list.get((int)data.arg1).set((int)data.arg2,good);

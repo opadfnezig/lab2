@@ -42,6 +42,8 @@ public class MainFrame extends JFrame{
 	private JPanel leftPanel;
 	private JTree fileSystem = null;
 	private JScrollPane treeView;
+	private JTextField searchField;
+	private JButton searchButton;
 	
 	private JPanel mainPanel;
 	private JTextArea mainTextArea;
@@ -107,7 +109,7 @@ public class MainFrame extends JFrame{
 					initFileTree();
 				} catch(NullPointerException npe) {
 					JOptionPane.showMessageDialog(null, "Base is not found");
-					base = new GroupBase("StorageGoodsSystem", "Storage.dat");
+					base = new GroupBase("StorageGoodsSystem", "C:\\Users\\Igor\\Storage.dat");
 				}
 			}
 		});
@@ -220,9 +222,39 @@ public class MainFrame extends JFrame{
 	
 	private void initLeftPanel() {
 		leftPanel = new JPanel(new BorderLayout());
+		
 		Border border = BorderFactory.createTitledBorder("File system");
 		leftPanel.setBorder(border);
+		
+		searchField = new JTextField();
+		searchButton = new JButton("Search");
+		
+		JPanel sp = new JPanel(new BorderLayout());
+		sp.add(searchField, BorderLayout.CENTER);
+		sp.add(searchButton, BorderLayout.EAST);
+		
+		leftPanel.add(sp, BorderLayout.NORTH);
+		
 		initFileTree();
+		
+		searchButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Pair p = base.findGood(searchField.getText());
+				if(p != null)
+				{
+					TreePath tp = new TreePath(new Object[]{
+							new DefaultMutableTreeNode(base.getName()),
+							new DefaultMutableTreeNode(base.get((int)p.arg1).getName()), 
+							new DefaultMutableTreeNode(base.get((int)p.arg1).get((int)p.arg2).getName())});
+					fileSystem.setSelectionPath(tp);
+				}
+				else
+					mainTextArea.setText("Nothing");
+			}
+		});
+		
 		this.add(leftPanel, BorderLayout.WEST);
 		
 	}
