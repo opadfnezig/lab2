@@ -21,6 +21,7 @@ public class Group extends SmartListContainer<Good>
 	public String toString()
 	{
 		String buff = "--" + this.name + ":";
+		buff += "\n--Price of all: " + getPrice();
 		for(var i : list) 
 			buff += "\n--" + i.toString();
 		buff+="\n--Description: "+description;
